@@ -1,0 +1,25 @@
+FROM node:20-alpine
+
+RUN apk add --no-cache shadow
+
+ARG UID=1000
+ARG GID=1000
+
+RUN if [ "$UID" != "1000" ] || [ "$GID" != "1000" ]; then \
+      groupmod -g ${GID} node && usermod -u ${UID} -g node node; \
+    fi
+
+WORKDIR /app
+
+COPY front/package*.json ./
+
+RUN npm ci && chown -R node:node /app/node_modules
+
+COPY front/. .
+
+COPY docker/front/entry.sh /usr/local/bin/entry.sh
+RUN chmod +x /usr/local/bin/entry.sh
+
+EXPOSE 5173
+
+ENTRYPOINT ["/usr/local/bin/entry.sh"]

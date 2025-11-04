@@ -1,0 +1,28 @@
+FROM node:20-alpine
+
+RUN apk add --no-cache postgresql-client shadow
+
+ARG UID=1000
+ARG GID=1000
+
+RUN if [ "$UID" != "1000" ] || [ "$GID" != "1000" ]; then \
+      groupmod -g ${GID} node && usermod -u ${UID} -g node node; \
+    fi
+
+WORKDIR /app
+
+COPY back/package*.json ./
+COPY back/prisma ./prisma
+
+ARG DATABASE_URL="postgresql://user:pass@host:port/db"
+ENV DATABASE_URL=${DATABASE_URL}
+RUN npm ci && npx prisma generate && chown -R node:node /app/node_modules
+
+COPY back/. .
+
+RUN mkdir -p /app/dist && chown -R node:node /app/dist
+
+COPY docker/back/entry.sh /usr/local/bin/entry.sh
+RUN chmod +x /usr/local/bin/entry.sh
+
+ENTRYPOINT ["/usr/local/bin/entry.sh"]

@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">Area</string>
+
+    <string name="login_title">Login</string>
+    <string name="register_title">Register</string>
+    <string name="username_label">Username</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="login_button">Login</string>
+    <string name="register_button">Register</string>
+    <string name="auth_switch_to_register">Need an account? Register</string>
+    <string name="auth_switch_to_login">Have an account? Login</string>
+    <string name="server_settings_button">Server Settings</string>
+
+    <string name="settings_title">Server Settings</string>
+    <string name="server_url_label">Server Base URL</string>
+    <string name="save_button">Save</string>
+    <string name="settings_save_notice">Changes will apply immediately.</string>
+    <string name="back_button_desc">Back</string>
+
+    <string name="services_title">Services</string>
+    <string name="connect_button">Connect</string>
+    <string name="reconnect_button">Reconnect</string>
+
+    <string name="workflows_title">Workflows</string>
+    <string name="workflows_empty_state">No workflows yet. Tap the \'+\' button to create one!</string>
+    <string name="reactions_label">Reactions</string>
+    <string name="delete_button">Delete</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="logout_button_desc">Logout</string>
+    <string name="create_workflow_button_desc">Create Workflow</string>
+    <string name="delete_workflow_dialog_title">Delete Workflow?</string>
+    <string name="delete_workflow_dialog_text">Are you sure you want to delete the workflow \"%1$s\"?</string>
+    <string name="workflow_card_when_label">When</string>
+    <string name="workflow_card_then_label">Then</string>
+
+    <string name="create_workflow_title">Create Workflow</string>
+    <string name="continue_button">Continue</string>
+    <string name="save_workflow_button">Save Workflow</string>
+    <string name="wizard_step1_title">1. Select Action Service</string>
+    <string name="wizard_step2_title">2. Select Action</string>
+    <string name="wizard_step3_title">3. Configure Action</string>
+    <string name="wizard_step4_title">4. Select Reaction Service</string>
+    <string name="wizard_step5_title">5. Select Reaction</string>
+    <string name="wizard_step6_title">6. Configure Reaction</string>
+    <string name="wizard_step7_title">7. Review and Save</string>
+    <string name="review_action_label">Action:</string>
+    <string name="review_reaction_label">Reaction:</string>
+    <string name="wizard_step_indicator">Step %1$d of %2$d</string>
+    <string name="no_configurable_fields">This item has no configurable fields.</string>
+</resources>

@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "mockk": "^1.0.0",
+    "turbine": "^0.1.1"
+  }
+}

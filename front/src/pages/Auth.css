@@ -1,0 +1,61 @@
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: var(--space-5);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    padding: var(--space-5);
+}
+
+.auth-card h1 {
+    text-align: center;
+    margin-bottom: var(--space-5);
+}
+
+.auth-form {
+    display: grid;
+    gap: var(--space-4);
+}
+
+.auth-form label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    font-weight: 600;
+    color: var(--color-text-muted);
+}
+
+.auth-submit {
+    width: 100%;
+    justify-content: center;
+    margin-top: var(--space-3);
+}
+
+.auth-switch {
+    margin-top: var(--space-4);
+    text-align: center;
+    font-size: var(--font-size-sm);
+}
+
+.auth-switch a {
+    color: var(--color-accent-hover);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
+.error-box {
+    background: color-mix(in oklab, var(--color-danger), transparent 84%);
+    border: 1px solid color-mix(in oklab, var(--color-danger), transparent 55%);
+    color: var(--color-text);
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    text-align: center;
+}

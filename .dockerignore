@@ -1,0 +1,39 @@
+# git, ci, ide
+.git
+.github
+.idea
+.vscode
+.DS_Store
+
+# env and secrets
+.env
+.env.example
+docker/.env.run
+docker/.env.test
+docker/frpc.toml
+/mobile/*.jks
+/mobile/local.properties
+
+# node and build artifacts
+**/node_modules
+**/dist
+**/build
+/coverage/
+.cache/
+/front/public/client.apk
+
+# mobile
+mobile/.gradle
+mobile/app/build
+mobile/build/reports
+mobile/build/test-results
+
+# cypress
+front/cypress/screenshots
+front/cypress/videos
+
+# docs and scripts
+docs/
+*.md
+dev.sh
+test.sh

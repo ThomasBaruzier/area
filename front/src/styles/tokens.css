@@ -1,0 +1,73 @@
+:root {
+    --font-brand: "Space Grotesk","Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+    --font-sans: "Space Grotesk","Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.83rem;
+    --font-size-base: 1rem;
+    --font-size-md: 1.125rem;
+    --font-size-lg: 1.35rem;
+    --font-size-xl: 1.65rem;
+    --font-size-xxl: clamp(2.1rem, 5vw, 2.9rem);
+
+    --line-height-tight: 1.15;
+    --line-height-base: 1.45;
+    --line-height-relaxed: 1.6;
+
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+
+    --radius-xs: 2px;
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 10px;
+    --radius-round: 999px;
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.15);
+    --shadow-md: 0 4px 10px rgba(0,0,0,0.18);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.25);
+
+    --transition-fast: 120ms ease;
+    --transition-base: 200ms ease;
+    --container-max: 1120px;
+}
+
+:root,
+:root[data-theme='dark'] {
+    --color-bg: #303134;
+    --color-bg-alt: #37393B;
+    --color-surface: #3D3F42;
+    --color-border: #4A4C4F;
+    --color-accent: #B0E0B8;
+    --color-accent-hover: #98D0A0;
+    --color-accent-contrast: #1A381F;
+    --color-text: #F5F6F4;
+    --color-text-muted: #B5B7B4;
+    --color-focus: #98D0A0;
+    --color-danger: #D96A5E;
+    --color-warning: #E0B65A;
+    --color-success: #9FC79A;
+    --gradient-accent: linear-gradient(135deg, #B0E0B8 0%, #98D0A0 100%);
+}
+
+:root[data-theme='light'] {
+    --color-bg: #E1DBCF;
+    --color-bg-alt: #D7D1C7;
+    --color-surface: #CEC8BE;
+    --color-border: #4A4C4F;
+    --color-accent: #6C0BE3;
+    --color-accent-hover: #5A09B8;
+    --color-accent-contrast: #FFFFFF;
+    --color-text: #2E312F;
+    --color-text-muted: #6E716E;
+    --color-focus: #6C0BE3;
+    --color-danger: #B34135;
+    --color-warning: #9C7722;
+    --color-success: #4F7A4A;
+    --gradient-accent: linear-gradient(135deg, #6C0BE3 0%, #5A09B8 100%);
+}

@@ -1,0 +1,260 @@
+.services-page {
+    display: block;
+}
+
+.services-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.services-count {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+}
+@media (max-width: 1024px) {
+    .services-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+    .services-grid { grid-template-columns: 1fr; }
+}
+
+.service-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    transition: box-shadow 0.18s, border-color 0.18s, background 0.18s;
+    min-width: 340px;
+    max-width: 700px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1.5px solid var(--color-border);
+    background: var(--color-surface);
+}
+.service-card:hover, .service-card:focus-visible {
+    box-shadow: 0 3px 24px 0 var(--color-accent-hover);
+    border-color: var(--color-accent);
+    background: color-mix(in oklab, var(--color-surface), var(--color-accent-hover) 6%);
+}
+.service-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+}
+.service-name {
+    margin: 0;
+    font-size: var(--font-size-lg);
+}
+.service-desc {
+    margin: 0;
+    color: var(--color-text-muted);
+}
+.service-card-actions {
+    margin-top: auto;
+    padding-top: var(--space-2);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.connection-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    border-radius: var(--radius-round);
+    border: 1.5px solid;
+    white-space: nowrap;
+}
+.connection-badge.connected {
+    border-color: color-mix(in oklab, var(--color-success), transparent 30%);
+    background: color-mix(in oklab, var(--color-success), var(--color-surface) 85%);
+    color: var(--color-text);
+}
+.connection-badge.disconnected {
+    border-color: color-mix(in oklab, var(--color-warning), transparent 35%);
+    background: color-mix(in oklab, var(--color-warning), var(--color-surface) 86%);
+    color: var(--color-text);
+}
+
+.skeleton {
+    position: relative;
+    overflow: hidden;
+    background: color-mix(in oklab, var(--color-surface), var(--color-text) 6%);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    height: 104px;
+    min-width: 340px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+            90deg,
+            transparent,
+            color-mix(in oklab, var(--color-text), transparent 85%),
+            transparent
+    );
+    animation: shimmer 1.25s infinite;
+}
+@keyframes shimmer {
+    100% { transform: translateX(100%); }
+}
+
+.error-box {
+    background: color-mix(in oklab, var(--color-danger), transparent 84%);
+    border: 1px solid color-mix(in oklab, var(--color-danger), transparent 55%);
+    color: var(--color-text);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+}
+
+.service-modal {
+    max-width: 860px;
+    width: 100%;
+    padding: var(--space-5) var(--space-4) var(--space-3);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: none;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    max-height: 94vh;
+}
+
+.service-modal-details {
+    margin-top: var(--space-2);
+    overflow-y: auto;
+    max-height: 66vh;
+    padding-right: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-accent-hover) transparent;
+}
+.service-modal-details::-webkit-scrollbar {
+    width: 7px;
+    background: transparent;
+}
+.service-modal-details::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--color-accent-hover), transparent 40%);
+    border-radius: 6px;
+    min-height: 48px;
+}
+.service-modal-details::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklab, var(--color-accent-hover), transparent 15%);
+}
+
+.section-title {
+    font-size: var(--font-size-md);
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+    margin-top: var(--space-4);
+    color: var(--color-accent-hover);
+    letter-spacing: 0.2px;
+}
+.section-title:first-child {
+    margin-top: 0;
+}
+.divider {
+    border: none;
+    border-top: 1.5px solid var(--color-border);
+    margin: var(--space-4) 0 var(--space-2) 0;
+    height: 0;
+}
+
+.details-list {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (max-width: 700px) {
+    .details-list {
+        grid-template-columns: 1fr;
+    }
+}
+.details-list-item {
+    background: color-mix(in oklab, var(--color-bg), var(--color-accent) 4%);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+    box-shadow: none;
+    border: 1px solid color-mix(in oklab, var(--color-border), var(--color-accent) 16%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.7em;
+}
+.details-list-item-name {
+    font-weight: 600;
+    color: var(--color-accent);
+    font-size: var(--font-size-md);
+    display: block;
+    margin-bottom: 0.7em;
+    letter-spacing: 0.1px;
+}
+.fields-list-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-accent-hover);
+    margin-bottom: 0.5em;
+    letter-spacing: 0.1px;
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+}
+.fields-list-emoji {
+    font-size: 1.07em;
+    vertical-align: middle;
+}
+.fields-list-dotted-rect {
+    width: 100%;
+    border: 1.5px dashed var(--color-accent-hover);
+    background-color: color-mix(in oklab, var(--color-bg), var(--color-accent) 2%);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    margin-bottom: 0.6em;
+    margin-top: 0.1em;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+.field-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2px;
+}
+.field-name.field-dotted {
+    color: var(--color-accent-hover);
+    font-family: var(--font-mono, monospace);
+    font-size: var(--font-size-md);
+    font-weight: 700;
+    letter-spacing: 0.15px;
+    background: none;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    display: inline-block;
+}
+:root[data-theme="light"] .fields-list-dotted-rect {
+    border-color: #385130;
+    background-color: #e2e9e0;
+}
+:root[data-theme="light"] .field-name.field-dotted {
+    color: #385130;
+}

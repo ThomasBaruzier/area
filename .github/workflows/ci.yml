@@ -1,0 +1,119 @@
+name: cicd
+on:
+  push:
+
+jobs:
+  changes:
+    name: Detect changes
+    runs-on: self-hosted
+    outputs:
+      back: ${{ steps.filter.outputs.back }}
+      front: ${{ steps.filter.outputs.front }}
+      mobile: ${{ steps.filter.outputs.mobile }}
+      any_changed: ${{ steps.filter.outputs.any }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          clean: true
+
+      - name: Detect differences
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          base: ${{ github.event.pull_request.base.sha || github.event.before }}
+          filters: |
+            back:
+              - 'back/**'
+              - 'docker/back/**'
+              - 'docker/docker-compose.cache.yml'
+              - 'docker/docker-compose.test.yml'
+              - 'docker-compose.yml'
+              - '.github/workflows/**'
+              - 'test.sh'
+            front:
+              - 'front/**'
+              - 'docker/front/**'
+              - 'docker/docker-compose.cache.yml'
+              - 'docker/docker-compose.test.yml'
+              - 'docker-compose.yml'
+              - '.github/workflows/**'
+              - 'test.sh'
+            mobile:
+              - 'mobile/**'
+              - 'docker/mobile/**'
+              - 'docker/docker-compose.cache.yml'
+              - 'docker/docker-compose.test.yml'
+              - 'docker-compose.yml'
+              - '.github/workflows/**'
+              - 'test.sh'
+
+  back-tests:
+    if: vars.MIRROR_URL != '' && needs.changes.outputs.back == 'true'
+    name: Backend Tests
+    needs: [changes]
+    uses: ./.github/workflows/reusable.yml
+    with:
+      component: back
+      test_command: ./test.sh --parallel back:all
+      artifact_name: back-test-logs-${{ github.run_number }}
+      artifact_path: |
+        back/logs/
+        back/coverage/
+        back/dist/
+
+  front-tests:
+    if: vars.MIRROR_URL != '' && needs.changes.outputs.front == 'true'
+    name: Frontend Tests
+    needs: [changes]
+    uses: ./.github/workflows/reusable.yml
+    with:
+      component: front
+      test_command: ./test.sh --parallel front:all
+      artifact_name: front-test-logs-${{ github.run_number }}
+      artifact_path: |
+        front/cypress/screenshots/
+        front/cypress/videos/
+
+  mobile-tests:
+    if: vars.MIRROR_URL != '' && needs.changes.outputs.mobile == 'true'
+    name: Mobile Tests
+    needs: [changes]
+    uses: ./.github/workflows/reusable.yml
+    with:
+      component: mobile
+      test_command: ./test.sh --parallel mobile:all
+      artifact_name: mobile-test-logs-${{ github.run_number }}
+      artifact_path: |
+        mobile/build/reports/
+        mobile/build/test-results/
+
+#  mirror:
+#    name: Mirror to repository
+#    runs-on: self-hosted
+#    needs: [changes, back-tests, front-tests, mobile-tests]
+#    if: |
+#      always() &&
+#      vars.MIRROR_URL != '' &&
+#      (needs.changes.outputs.back != 'true' || needs.back-tests.result == 'success') &&
+#      (needs.changes.outputs.front != 'true' || needs.front-tests.result == 'success') &&
+#      (needs.changes.outputs.mobile != 'true' || needs.mobile-tests.result == 'success') &&
+#      needs.back-tests.result != 'cancelled' &&
+#      needs.front-tests.result != 'cancelled' &&
+#      needs.mobile-tests.result != 'cancelled'
+#    steps:
+#      - name: Checkout full repository
+#        uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Set up ssh for push
+#        uses: webfactory/ssh-agent@v0.9.0
+#        with:
+#          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+#
+#      - name: Mirror push to repository
+#        run: |
+#          git push --force "${{ vars.MIRROR_URL }}" 'refs/remotes/origin/*:refs/heads/*'
+#          git push --force "${{ vars.MIRROR_URL }}" --tags

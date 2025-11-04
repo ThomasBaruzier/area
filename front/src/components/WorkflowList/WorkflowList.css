@@ -1,0 +1,206 @@
+.workflow-list {
+    display: grid;
+    gap: var(--space-4);
+}
+
+.workflow-card {
+    width: 100%;
+    padding: var(--space-4);
+    display: grid;
+    gap: var(--space-4);
+    border: 1.5px solid var(--color-border);
+    background: var(--color-surface);
+    transition: box-shadow var(--transition-base), border-color var(--transition-base), background var(--transition-base);
+}
+
+.workflow-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.workflow-card-title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+}
+.wf-title {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    letter-spacing: 0.2px;
+}
+
+.wf-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border-radius: var(--radius-round);
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-alt);
+}
+.wf-status.on {
+    border-color: color-mix(in oklab, var(--color-success), transparent 30%);
+    background: color-mix(in oklab, var(--color-success), var(--color-surface) 85%);
+    color: var(--color-text);
+}
+.wf-status.off {
+    border-color: color-mix(in oklab, var(--color-warning), transparent 35%);
+    background: color-mix(in oklab, var(--color-warning), var(--color-surface) 86%);
+    color: var(--color-text);
+}
+
+.workflow-card-body {
+    display: grid;
+    gap: var(--space-4);
+}
+
+.wf-section {
+    display: grid;
+    gap: var(--space-2);
+}
+
+.wf-section-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    justify-content: space-between;
+}
+.wf-badge {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    font-size: 0.8rem;
+}
+.wf-badge.wf-action {
+    color: var(--color-accent);
+    border-color: color-mix(in oklab, var(--color-accent), transparent 40%);
+    background: color-mix(in oklab, var(--color-accent), var(--color-surface) 90%);
+}
+.wf-badge.wf-reaction {
+    color: var(--color-accent-hover);
+    border-color: color-mix(in oklab, var(--color-accent-hover), transparent 40%);
+    background: color-mix(in oklab, var(--color-accent-hover), var(--color-surface) 90%);
+}
+
+.wf-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.wf-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    font-size: 0.8rem;
+    color: var(--color-text);
+}
+
+.kv-grid {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.kv-item {
+    display: grid;
+    grid-template-columns: auto 6px 1fr;
+    align-items: center;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-alt);
+}
+.kv-key {
+    font-weight: 700;
+    color: var(--color-accent);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.kv-sep { color: var(--color-text-muted); text-align: center; }
+.kv-val {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.wf-reactions { display: grid; gap: var(--space-3); }
+.wf-reaction-item {
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-md);
+    background: color-mix(in oklab, var(--color-surface), var(--color-text) 2%);
+}
+
+.wf-empty { color: var(--color-text-muted); font-style: italic; }
+
+.wf-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.wf-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px 6px 8px;
+}
+.wf-toggle .toggle-knob {
+    width: 34px;
+    height: 18px;
+    background: var(--color-border);
+    border-radius: 12px;
+    position: relative;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15);
+}
+.wf-toggle .toggle-knob::after {
+    content: "";
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 14px; height: 14px;
+    background: var(--color-surface);
+    border-radius: 50%;
+    transition: transform 140ms ease, background 140ms ease;
+}
+.wf-toggle.on .toggle-knob { background: color-mix(in oklab, var(--color-success), var(--color-surface) 40%); }
+.wf-toggle.on .toggle-knob::after { transform: translateX(16px); }
+.wf-toggle .toggle-label { font-size: 0.85rem; color: var(--color-text-muted); }
+
+.wf-skeleton {
+    height: 140px;
+    border-radius: var(--radius-lg);
+    background: color-mix(in oklab, var(--color-surface), var(--color-text) 6%);
+    border: 1px solid var(--color-border);
+    position: relative;
+    overflow: hidden;
+}
+.wf-skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--color-text), transparent 85%), transparent);
+    animation: wf-shimmer 1.25s infinite;
+}
+@keyframes wf-shimmer {
+    100% { transform: translateX(100%); }
+}

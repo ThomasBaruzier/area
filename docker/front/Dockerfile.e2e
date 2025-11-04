@@ -1,0 +1,19 @@
+FROM cypress/included:15.5.0
+
+ARG UID=1000
+ARG GID=1000
+
+RUN if [ "$UID" != "1000" ] || [ "$GID" != "1000" ]; then \
+      groupmod -g ${GID} node && usermod -u ${UID} -g node node; \
+    fi
+
+WORKDIR /app
+
+COPY --chown=node:node front/package*.json ./
+RUN npm ci
+
+COPY --chown=node:node front/. .
+
+USER node
+
+CMD ["cypress", "run", "--headless"]

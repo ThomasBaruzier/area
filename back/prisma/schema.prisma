@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id                Int                 @id @default(autoincrement())
+  username          String              @unique
+  email             String              @unique
+  password          String?
+  role              Role                @default(USER)
+  workflows         Workflow[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  ServiceConnection ServiceConnection[]
+}
+
+model Action {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  jsonFormat  Json
+
+  service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  serviceId Int
+
+  Workflow Workflow[]
+
+  @@unique([name, serviceId])
+}
+
+model Reaction {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  jsonFormat  Json
+
+  service   Service    @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  serviceId Int
+  workflows Workflow[]
+  @@unique([name, serviceId])
+}
+
+model Service {
+  id                Int                 @id @default(autoincrement())
+  name              String              @unique
+  description       String
+  actions           Action[]
+  reactions         Reaction[]
+  ServiceConnection ServiceConnection[]
+}
+
+model ServiceConnection {
+  id                  Int      @id @default(autoincrement())
+  token               String
+  expiresAt           DateTime
+  refreshToken        String?
+  webhookState        Json?
+  serviceUserIdentity String
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId              Int
+  service             Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  serviceId           Int
+
+  @@unique([userId, serviceId])
+}
+
+model Workflow {
+  id              Int               @id @default(autoincrement())
+  userId          Int
+  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  actionId        Int
+  action          Action            @relation(fields: [actionId], references: [id], onDelete: Cascade)
+  actionJson      Json
+  identifier      String?
+  reactions       Reaction[]
+  reactionsJson   Json[]
+  isEnabled       Boolean           @default(true)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  WorkflowHistory WorkflowHistory[]
+}
+
+model WorkflowHistory {
+  id         Int      @id @default(autoincrement())
+  workflowId Int
+  workflow   Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  triggered  DateTime @default(now())
+  success    Boolean  @default(true)
+}

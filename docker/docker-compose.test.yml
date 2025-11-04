@@ -1,0 +1,101 @@
+networks:
+  test_net:
+    driver: bridge
+
+services:
+  db-test:
+    image: postgres:17-alpine
+    container_name: db-test
+    environment:
+      POSTGRES_USER: area_user
+      POSTGRES_PASSWORD: changeme
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U area_user"]
+      interval: 3s
+      timeout: 5s
+      retries: 5
+    networks:
+      - test_net
+
+  back:
+    build:
+      context: ..
+      dockerfile: docker/back/Dockerfile.dev
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    volumes:
+      - ../back:/app
+      - /app/node_modules
+    env_file:
+      - .env.test
+    environment:
+      - DATABASE_URL=${DATABASE_URL:-}
+    depends_on:
+      db-test:
+        condition: service_healthy
+    networks:
+      - test_net
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/about.json"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  front:
+    build:
+      context: ..
+      dockerfile: docker/front/Dockerfile.dev
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    volumes:
+      - ../front:/app
+      - /app/node_modules
+    env_file:
+      - .env.test
+    environment:
+      - VITE_API_PROXY_TARGET=http://back:3000
+    depends_on:
+      - back
+    networks:
+      - test_net
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:5173"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  mobile:
+    build:
+      context: ..
+      dockerfile: docker/mobile/Dockerfile
+    env_file:
+      - .env.test
+    volumes:
+      - ../mobile:/app
+      - ../front/public:/output
+      - mobile_gradle:/opt/android-sdk-linux/.gradle
+    networks:
+      - test_net
+
+  cypress:
+    build:
+      context: ..
+      dockerfile: docker/front/Dockerfile.e2e
+      args:
+        UID: ${HOST_UID:-1000}
+        GID: ${HOST_GID:-1000}
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    profiles: ["e2e"]
+    depends_on:
+      front:
+        condition: service_healthy
+    environment:
+      - CYPRESS_BASE_URL=http://front:5173
+      - DATABASE_URL=${DATABASE_URL}
+    volumes:
+      - ../front/cypress/screenshots:/app/cypress/screenshots
+      - ../front/cypress/videos:/app/cypress/videos
+    networks:
+      - test_net
+
+volumes:
+  mobile_gradle:

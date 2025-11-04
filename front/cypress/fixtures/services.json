@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "GitHub",
+    "description": "Code hosting",
+    "connectUrl": "/auth/github"
+  },
+  {
+    "id": 2,
+    "name": "Google",
+    "description": "Email and more",
+    "connectUrl": "/auth/google"
+  }
+]

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- Disable some common warnings that are generally acceptable in our project -->
+    <issue id="GoogleAppIndexingWarning" severity="ignore" />
+    <issue id="MissingApplicationIcon" severity="ignore" />
+    <issue id="OldTargetApi" severity="ignore" />
+    <issue id="IconMissingDensityFolder" severity="ignore" />
+    <issue id="InvalidPackage" severity="warning">
+        <!-- Allow okhttp and other libraries that may trigger this warning -->
+        <ignore path="**/*.jar" />
+        <ignore path="**/*.aar" />
+    </issue>
+
+    <!-- Enable important security warnings -->
+    <issue id="AllowBackup" severity="warning" />
+    <issue id="IconLocation" severity="warning" />
+    <issue id="MissingIntentFilterForMediaSearch" severity="warning" />
+    <issue id="MissingTvBanner" severity="warning" />
+    <issue id="MonochromeLauncherIcon" severity="warning" />
+    <issue id="UnusedIds" severity="warning" />
+
+    <!-- Code quality and best practices -->
+    <issue id="ContentDescription" severity="warning" />
+    <issue id="ConvertToWebp" severity="warning" />
+    <issue id="DalvikOverride" severity="warning" />
+    <issue id="DuplicateStrings" severity="warning" />
+    <issue id="EasterEgg" severity="warning" />
+    <issue id="FieldGetter" severity="warning" />
+    <issue id="MissingSuperCall" severity="warning" />
+    <issue id="MissingTranslation" severity="warning" />
+    <issue id="StringFormatCount" severity="warning" />
+    <issue id="StringFormatInvalid" severity="warning" />
+    <issue id="StringFormatMatches" severity="warning" />
+    <issue id="TypographyDashes" severity="warning" />
+    <issue id="TypographyEllipsis" severity="warning" />
+    <issue id="TypographyFractions" severity="warning" />
+    <issue id="TypographyOther" severity="warning" />
+    <issue id="UnconditionalAnimation" severity="warning" />
+    <issue id="UnknownId" severity="warning" />
+    <issue id="UnpackedNativeCode" severity="warning" />
+    <issue id="UnsupportedTvHardware" severity="warning" />
+    <issue id="UseCheckPermission" severity="warning" />
+    <issue id="UseSparseArrays" severity="warning" />
+    <issue id="UseValueOf" severity="warning" />
+    <issue id="WrongViewCast" severity="warning" />
+
+    <!-- Compose-specific lint rules -->
+    <issue id="ComposeLazinessRequirements" severity="error" />
+    <issue id="ComposeContentEmitterReturningValues" severity="error" />
+    <issue id="ComposeUnstableCollections" severity="error" />
+    <issue id="ComposeUnstableReceiver" severity="error" />
+    <issue id="ComposeViewModelInjection" severity="warning" />
+
+    <!-- Kotlin/Coroutines best practices -->
+    <issue id="CoroutineCreationDuringComposition" severity="error" />
+    <issue id="CompositionLocalUsage" severity="warning" />
+    <issue id="DisposableCreationDuringComposition" severity="error" />
+</lint>

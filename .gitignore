@@ -1,0 +1,28 @@
+# env and secrets
+.env
+docker/.env.run
+docker/frpc.toml
+/mobile/*.jks
+/mobile/local.properties
+
+# dependencies and objects
+node_modules/
+coverage/
+.gradle/
+build/
+dist/
+.cache/
+
+# build artifacts
+/front/public/client.apk
+/front/public/.build_hash
+/mobile/.kotlin/
+
+# test reports
+/front/cypress/screenshots/
+/front/cypress/videos/
+
+# os and ide
+.idea/
+.vscode/
+.DS_Store

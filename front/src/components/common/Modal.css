@@ -1,0 +1,64 @@
+.modal-overlay {
+  position: fixed;
+  z-index: 50;
+  inset: 0;
+  background: rgba(20, 21, 24, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: modal-fadein 150ms;
+}
+@keyframes modal-fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.modal-body {
+  position: relative;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.29);
+  padding: 0;
+  max-width: 900px;
+  width: 97vw;
+  animation: modal-in 180ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  margin: 0;
+  border: 1.5px solid var(--color-border);
+  overflow: visible;
+}
+@keyframes modal-in {
+  from {
+    transform: scale(0.96) translateY(18px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+.modal-close {
+  position: absolute;
+  right: var(--space-3);
+  top: var(--space-3);
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  z-index: 10;
+  padding: 2px 8px;
+  border-radius: 3px;
+  transition: background 0.16s;
+}
+.modal-close:hover,
+.modal-close:focus {
+  background: color-mix(
+    in oklab,
+    var(--color-surface),
+    var(--color-accent) 7%
+  );
+  color: var(--color-accent-hover);
+}

@@ -55,35 +55,37 @@ Check `package.json` for the exact list. Examples include:
 The frontend uses a hierarchy of React Context Providers for global state management. This approach ensures that components have access to the data they need without prop-drilling.
 
 ```mermaid
-graph TD
-    subgraph "index.tsx"
+flowchart TD
+    subgraph index
         A[BrowserRouter]
     end
 
-    subgraph "App.tsx (Context Providers)"
-        A --> AP[AuthProvider];
-        AP --> CP[ConnectionsProvider];
-        CP --> WP[WorkflowsProvider];
+    subgraph app_context
+        A --> AP[AuthProvider]
+        AP --> CP[ConnectionsProvider]
+        CP --> WP[WorkflowsProvider]
     end
 
-    subgraph "Pages & Components"
-        WP --> P[Any Page or Component];
+    subgraph pages
+        WP --> P[Any Page or Component]
     end
 
-    subgraph "Accessing State via Hooks"
-        P -.-> hAuth[useAuth()];
-        P -.-> hConn[useConnections()];
-        P -.-> hFlow[useWorkflows()];
+    subgraph hooks
+        P -.-> hAuth[useAuth]
+        P -.-> hConn[useConnections]
+        P -.-> hFlow[useWorkflows]
     end
 
-    subgraph "Data Fetching"
-        hConn -- Calls --> F[apiFetch Utility];
-        hFlow -- Calls --> F;
-        F -- "Adds Auth Token from useAuth()" --> API[Backend API];
+    subgraph data_fetching
+        hConn --> F[apiFetch Utility]
+        hFlow --> F
+        F --> API[Backend API]
     end
 
-    style P fill:#cde,stroke:#333
-    style F fill:#f9f,stroke:#333
+    F ---|Adds auth token from useAuth| API
+
+    style P fill:#cde,stroke:#333,color:#111
+    style F fill:#f3d6e8,stroke:#333,color:#111
 ```
 
 - **Providers**: The main `App.tsx` wraps the application in a series of providers. `AuthProvider` is at the top, making authentication state available to all others.

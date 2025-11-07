@@ -185,7 +185,7 @@ For more detailed information, please refer to the following documentation:
 * `mobile/`
   * [`README.md`](./mobile/README.md): Developer guide for the native Android client.
 
-## 6. Collaborators
+## 6. Contributors
 
 - Edgar Brunet - [GitHub Profile](https://github.com/edgarbnt)
 - Hélène Houplain - [GitHub Profile](https://github.com/Houpsi)

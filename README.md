@@ -16,7 +16,7 @@ Area is a full-stack automation platform, similar to IFTTT or Zapier, that allow
 3. [Project structure](#3-project-structure)
 4. [Documentation suite](#4-documentation-suite)
 5. [Scripts overview](#5-scripts-overview)
-6. [Collaborators](#6-collaborators)
+6. [Collaborators](#6-contributors)
 
 ## 1. Project overview
 
